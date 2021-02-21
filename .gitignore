@@ -3,3 +3,4 @@ static/*
 build/
 dist/
 .cache/
+.DS_Store
