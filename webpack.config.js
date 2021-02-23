@@ -35,7 +35,10 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
     },
-    plugins: [new HtmlWebpackPlugin({
-        template: './index.html'
-    })],
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'React App',
+            template: './src/index.html'
+        })
+    ],
 }
