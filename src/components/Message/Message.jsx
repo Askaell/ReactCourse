@@ -1,15 +1,11 @@
 const Message = (props) => {
     return (
-        <div className='message'>
-            Author: {props.name}
-            <br></br>
-            Time: {props.time}
-            <br></br>
-            {props.text}
-            <br></br>
-            <br></br>
+        <div className="message">
+            <div className="message__text">{props.text}</div>
+            <div className="message__author">{props.author}</div>
+            <div className="message__time">{props.time}</div>
         </div>
     );
 };
 
-export {Message};
+export { Message };

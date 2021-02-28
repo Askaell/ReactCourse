@@ -1,15 +1,11 @@
-import {Component} from 'react';
-import {MessageField} from '../MessageField';
+import { Layout } from '../Layout';
 
-class App extends Component {
-    render() {
-        return (
-            <div id='test-id'>
-                <h2>Hello from React</h2>
-                <MessageField />
-            </div>
-        );
-    }
-}
+const App = () => {
+    return (
+        <div id="app">
+            <Layout />
+        </div>
+    );
+};
 
 export { App };
