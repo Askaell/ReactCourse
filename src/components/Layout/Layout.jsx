@@ -10,7 +10,7 @@ const Layout = () => {
     return (
         <Container className="container" maxWidth="md">
             <Header />
-            <Grid container spacing={0}>
+            <Grid className="grid_container" container spacing={0}>
                 <Grid item xs={3}>
                     <ChatList />
                 </Grid>

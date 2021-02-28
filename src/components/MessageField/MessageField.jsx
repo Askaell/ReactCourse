@@ -16,7 +16,7 @@ class MessageField extends Component {
             messages: [
                 ...this.state.messages,
                 {
-                    name: 'You',
+                    author: 'You',
                     text: 'hi' + Math.random(),
                     time: new Date().toLocaleString(),
                 },
@@ -42,7 +42,7 @@ class MessageField extends Component {
                     messages: [
                         ...this.state.messages,
                         {
-                            name: 'Robot',
+                            author: 'Robot',
                             text: 'I am just a robot',
                             time: new Date().toLocaleString(),
                         },

@@ -1,3 +1,5 @@
+import './Message.css';
+
 const Message = (props) => {
     return (
         <div className="message">
