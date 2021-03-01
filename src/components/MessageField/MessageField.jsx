@@ -27,33 +27,34 @@ class MessageField extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        console.log(this.state.textField);
+        if (this.state.textField.length === 0) {
+            return;
+        }
         this.addMessage(this.state.textField);
 
         event.target.value = this.setState({ textField: [] });
-        // фронтовые штучки
 
-        // this.doSumthing();
+        this.robotAnswer();
     };
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    componentDidUpdate() {
-        if (this.state.messages.length % 2 === 1) {
-            setTimeout(() => {
-                this.setState({
-                    messages: [
-                        ...this.state.messages,
-                        {
-                            author: 'Robot',
-                            text: 'I am just a robot',
-                            time: new Date().toLocaleString(),
-                        },
-                    ],
-                });
-            }, 1000);
-        }
+    robotAnswer() {
+        setTimeout(() => {
+            this.setState({
+                messages: [
+                    ...this.state.messages,
+                    {
+                        author: 'Robot',
+                        text: 'I am just a robot',
+                        time: new Date().toLocaleString(),
+                    },
+                ],
+            });
+        }, 1000);
     }
 
     render() {
