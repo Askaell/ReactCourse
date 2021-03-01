@@ -9,15 +9,16 @@ import './MessageField.css';
 class MessageField extends Component {
     state = {
         messages: [],
+        textField: [],
     };
 
-    addMessage = () => {
+    addMessage = (messageText) => {
         this.setState({
             messages: [
                 ...this.state.messages,
                 {
                     author: 'You',
-                    text: 'hi' + Math.random(),
+                    text: messageText,
                     time: new Date().toLocaleString(),
                 },
             ],
@@ -26,6 +27,9 @@ class MessageField extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        this.addMessage(this.state.textField);
+
+        event.target.value = this.setState({ textField: [] });
         // фронтовые штучки
 
         // this.doSumthing();
@@ -62,15 +66,16 @@ class MessageField extends Component {
                         <Message key={index} {...item} />
                     ))}
                 </div>
-                <form onSubmit={this.handleSubmit}>
+                <form id="messageForm" onSubmit={this.handleSubmit}>
                     <Grid container spacing={0}>
                         <Grid item xs={10}>
                             <TextField
                                 id="textField"
+                                name="textField"
                                 label="Message"
                                 autoFocus={true}
                                 fullWidth
-                                value={this.state.username}
+                                value={this.state.textField}
                                 onChange={this.handleChange}
                             />
                         </Grid>
@@ -79,7 +84,8 @@ class MessageField extends Component {
                                 id="sendButton"
                                 variant="contained"
                                 color="primary"
-                                onClick={this.addMessage}
+                                onClick={this.handleSubmit}
+                                type="submit"
                             >
                                 {<Icon>send</Icon>}
                             </Button>
