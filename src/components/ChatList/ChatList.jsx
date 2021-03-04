@@ -1,7 +1,10 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
 import { Chat } from './Chat';
+
+import './ChatList.css';
 
 const ChatList = () => {
     const [chats, addChat] = React.useState([
@@ -13,9 +16,13 @@ const ChatList = () => {
     return (
         <List className="chat_list">
             {chats.map((item, index) => (
-                <Link key={index} to={`/chat/${item.chatId}`}>
+                <NavLink
+                    key={index}
+                    to={`/chat/${item.chatId}`}
+                    activeClassName="selected-chat"
+                >
                     <Chat {...item} />
-                </Link>
+                </NavLink>
             ))}
         </List>
     );
