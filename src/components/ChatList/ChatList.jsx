@@ -1,5 +1,6 @@
 import React from 'react';
 import List from '@material-ui/core/List';
+import { Link } from 'react-router-dom';
 import { Chat } from './Chat';
 
 const ChatList = () => {
@@ -12,7 +13,9 @@ const ChatList = () => {
     return (
         <List className="chat_list">
             {chats.map((item, index) => (
-                <Chat key={index} {...item} />
+                <Link key={index} to={`/chat/${item.chatId}`}>
+                    <Chat {...item} />
+                </Link>
             ))}
         </List>
     );
