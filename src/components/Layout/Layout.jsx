@@ -1,25 +1,36 @@
-import React from 'react';
-import { MessageField } from '../MessageField';
-import Container from '@material-ui/core/Container';
-import { Header } from '../Header';
-import { ChatList } from '../ChatList';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
+
+import { MessageField } from '../MessageField';
+import { ChatList } from '../ChatList';
+
 import './Layout.css';
 
-const Layout = () => {
-    return (
-        <Container className="container" maxWidth="md">
-            <Header />
+class _Layout extends Component {
+    static propTypes = {
+        match: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired,
+    };
+
+    render() {
+        const { match } = this.props;
+
+        return (
             <Grid className="grid_container" container spacing={0}>
                 <Grid item xs={3}>
                     <ChatList />
                 </Grid>
                 <Grid item xs={9}>
-                    <MessageField />
+                    <MessageField currentChat={match.params.chatId} />
                 </Grid>
             </Grid>
-        </Container>
-    );
-};
+        );
+    }
+}
+
+const Layout = withRouter(_Layout);
 
 export { Layout };

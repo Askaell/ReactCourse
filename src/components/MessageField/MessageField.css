@@ -1,7 +1,30 @@
-.messageField {
-    height: 90%;
+.messageFieldContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    height: 80%;
+    width: 90%;
+    position: relative;
 }
 
-#sendButton {
-    float: right;
+.message-field {
+    width: 100%;
+    min-height: 85%;
+    height: 1px;
+    position: absolute;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.message-input {
+    display: flex;
+}
+
+#messageForm {
+    width: 100%;
 }

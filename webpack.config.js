@@ -10,7 +10,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'static', 'build'),
         filename: 'bundle.js',
-        // publicPath: '/static/build/'
+        publicPath: '/',
     },
     module: {
         rules: [
@@ -60,4 +60,8 @@ module.exports = {
         }),
     ],
     devtool: 'inline-source-map',
+    devServer: {
+        hot: true,
+        historyApiFallback: true,
+    },
 };

@@ -1,0 +1,12 @@
+.selected-chat :first-child {
+    background-color: lightblue;
+}
+
+.selected-chat :first-child:hover {
+    background-color: lightblue;
+}
+
+:any-link {
+    text-decoration: none;
+    color: rgb(82, 82, 82);
+}

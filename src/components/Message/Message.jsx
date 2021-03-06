@@ -2,7 +2,7 @@ import './Message.css';
 
 const Message = (props) => {
     return (
-        <div className="clearfix">
+        <div>
             <div
                 className={
                     props.author === 'You'

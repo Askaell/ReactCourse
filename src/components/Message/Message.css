@@ -23,9 +23,3 @@
     font-size: 0.6rem;
     color: grey;
 }
-
-.clearfix::after {
-    content: '';
-    display: table;
-    clear: both;
-}

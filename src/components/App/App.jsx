@@ -1,10 +1,17 @@
-import { Layout } from '../Layout';
+import Container from '@material-ui/core/Container';
+
+import { Router } from '../Router';
+import { Header } from '../Header';
+
 import './App.css';
 
 const App = () => {
     return (
         <div id="app">
-            <Layout />
+            <Container className="container" maxWidth="md">
+                <Header />
+                <Router />
+            </Container>
         </div>
     );
 };
