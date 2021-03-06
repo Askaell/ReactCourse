@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
-class _ProfileLayout extends Component {
+class ProfileLayout extends Component {
     render() {
         return (
             <div>
@@ -14,7 +13,5 @@ class _ProfileLayout extends Component {
         );
     }
 }
-
-const ProfileLayout = withRouter(_ProfileLayout);
 
 export { ProfileLayout };
