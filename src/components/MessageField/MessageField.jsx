@@ -1,71 +1,43 @@
 import { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { TextField, IconButton, Icon, Grid } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 import { Message } from '../Message';
-
 import './MessageField.css';
 
-class MessageField extends Component {
+import { sendMessage } from '../../redux/actions/messageActions';
+
+class _MessageField extends Component {
     static propTypes = {
         currentChat: PropTypes.string,
+        messages: PropTypes.object.isRequired,
+        sendMessage: PropTypes.func.isRequired,
     };
 
     state = {
-        messages: {
-            0: [
-                {
-                    author: 'You',
-                    text: 'first chat',
-                    time: new Date().toLocaleString(),
-                },
-            ],
-            1: [
-                {
-                    author: 'You',
-                    text: 'second chat',
-                    time: new Date().toLocaleString(),
-                },
-            ],
-            2: [
-                {
-                    author: 'You',
-                    text: 'third chat',
-                    time: new Date().toLocaleString(),
-                },
-            ],
-        },
         textField: [],
     };
 
     fieldRef = createRef();
 
-    addMessage = (messageText) => {
-        const { currentChat } = this.props;
-        this.setState({
-            messages: {
-                ...this.state.messages,
-                [currentChat]: [
-                    ...this.state.messages[currentChat],
-                    {
-                        author: 'You',
-                        text: messageText,
-                        time: new Date().toLocaleString(),
-                    },
-                ],
-            },
-        });
+    addMessage = (messageText, author = '') => {
+        const chatId = this.props.currentChat;
+        const currentAuthor = author.length ? author : 'You';
+
+        this.props.sendMessage(messageText, currentAuthor, chatId);
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.textField);
+
         if (this.state.textField.length === 0) {
             return;
         }
         this.addMessage(this.state.textField);
+        this.setState({ textField: [] });
 
-        event.target.value = this.setState({ textField: [] });
+        event.target.value = this.state.textField;
 
         this.robotAnswer();
     };
@@ -76,37 +48,25 @@ class MessageField extends Component {
 
     robotAnswer() {
         setTimeout(() => {
-            const { currentChat } = this.props;
-            this.setState({
-                messages: {
-                    ...this.state.messages,
-                    [currentChat]: [
-                        ...this.state.messages[currentChat],
-                        {
-                            author: 'Robot',
-                            text: 'I am just a robot',
-                            time: new Date().toLocaleString(),
-                        },
-                    ],
-                },
-            });
+            this.addMessage('I am just a robot', 'Robot');
         }, 1000);
     }
+
     componentDidUpdate() {
         this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
     }
 
     render() {
-        const { messages = [] } = this.state;
-        const { currentChat } = this.props;
+        const { messages = {}, currentChat: chatId } = this.props;
+        console.log(this.props);
 
         return (
             <div className="messageFieldContainer">
-                {currentChat && (
+                {this.props.currentChat && (
                     <div className="message-field">
                         <div className="messages" ref={this.fieldRef}>
-                            {messages[currentChat] &&
-                                messages[currentChat].map((item, index) => (
+                            {messages[chatId] &&
+                                messages[chatId].map((item, index) => (
                                     <Message key={index} {...item} />
                                 ))}
                         </div>
@@ -143,5 +103,11 @@ class MessageField extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    messages: state.chat.messages,
+});
+
+const MessageField = connect(mapStateToProps, { sendMessage })(_MessageField);
 
 export { MessageField };
