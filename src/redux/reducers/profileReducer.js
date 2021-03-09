@@ -9,11 +9,14 @@ const initialState = {
 export const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PROFILE_NAME: {
-            const profile = state.profile || {};
+            const previousProfileDate = state.profile || {};
 
             return {
                 ...state,
-                profileName: action.payload.profileName,
+                profile: {
+                    ...previousProfileDate,
+                    profileName: action.payload.profileName,
+                },
             };
         }
         default:

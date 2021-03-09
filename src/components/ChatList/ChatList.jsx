@@ -41,7 +41,7 @@ class _ChatList extends Component {
     };
 
     render() {
-        const { chats: chats } = this.props;
+        const { chats } = this.props;
 
         return (
             <List className="chat_list_container">
@@ -54,7 +54,6 @@ class _ChatList extends Component {
                                     name="textChatField"
                                     label="New chat"
                                     variant="outlined"
-                                    autoFocus={true}
                                     fullWidth
                                     value={this.state.textChatField}
                                     onChange={this.handleChange}
