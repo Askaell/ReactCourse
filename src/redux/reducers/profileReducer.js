@@ -2,7 +2,7 @@ import { SET_PROFILE_NAME } from '../actions/profileActions';
 
 const initialState = {
     profile: {
-        profileName: 'testName',
+        profileName: 'Name',
     },
 };
 
