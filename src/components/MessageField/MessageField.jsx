@@ -58,7 +58,6 @@ class _MessageField extends Component {
 
     render() {
         const { messages = {}, currentChat: chatId } = this.props;
-        console.log(this.props);
 
         return (
             <div className="messageFieldContainer">
