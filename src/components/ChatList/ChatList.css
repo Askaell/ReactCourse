@@ -10,3 +10,12 @@
     text-decoration: none;
     color: rgb(82, 82, 82);
 }
+
+.chat_input {
+    width: 93%;
+    margin-bottom: 2%;
+}
+
+#sendChatButton {
+    height: 100%;
+}

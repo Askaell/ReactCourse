@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, AppBar, Toolbar, Typography } from '@material-ui/core';
+import { Button, AppBar, Toolbar, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import './Header.css';
 
-class Header extends Component {
+class _Header extends Component {
+    static propTypes = {
+        profile: PropTypes.object.isRequired,
+    };
+
     render() {
+        const { profile } = this.props;
         return (
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" className="title">
                         Messanger
                     </Typography>
+                    <Link to="/">
+                        <Button>Chats</Button>
+                    </Link>
                     <Link to="/profile">
-                        <Avatar className="avatar"></Avatar>
+                        <Button>{profile.profileName}</Button>
                     </Link>
                 </Toolbar>
             </AppBar>
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    profile: state.profile.profile,
+});
+
+const Header = connect(mapStateToProps)(_Header);
 
 export { Header };
