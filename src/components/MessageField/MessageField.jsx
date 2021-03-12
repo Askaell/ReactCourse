@@ -36,19 +36,11 @@ class _MessageField extends Component {
         }
         this.addMessage(this.state.textField);
         this.setState({ textField: [] });
-
-        this.robotAnswer();
     };
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     };
-
-    robotAnswer() {
-        setTimeout(() => {
-            this.addMessage('I am just a robot', 'Robot');
-        }, 1000);
-    }
 
     componentDidUpdate() {
         this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
