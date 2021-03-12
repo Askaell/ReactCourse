@@ -16,7 +16,7 @@ class _MessageField extends Component {
     };
 
     state = {
-        textField: [],
+        textField: '',
     };
 
     fieldRef = createRef();
@@ -36,8 +36,6 @@ class _MessageField extends Component {
         }
         this.addMessage(this.state.textField);
         this.setState({ textField: [] });
-
-        event.target.value = this.state.textField;
 
         this.robotAnswer();
     };
@@ -76,7 +74,7 @@ class _MessageField extends Component {
                                         <TextField
                                             id="textField"
                                             name="textField"
-                                            label="Message"
+                                            label="New message"
                                             autoFocus={true}
                                             fullWidth
                                             value={this.state.textField}

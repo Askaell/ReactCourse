@@ -12,7 +12,7 @@ class _ProfileLayout extends Component {
     };
 
     state = {
-        nameField: [],
+        nameField: '',
     };
 
     handleChange = (event) => {
@@ -27,8 +27,6 @@ class _ProfileLayout extends Component {
         }
         this.setName(this.state.nameField);
         this.setState({ nameField: [] });
-
-        event.target.value = this.state.nameField;
     };
 
     setName = (profileName) => {

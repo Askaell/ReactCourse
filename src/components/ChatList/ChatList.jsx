@@ -16,7 +16,7 @@ class _ChatList extends Component {
     };
 
     state = {
-        textChatField: [],
+        textChatField: '',
     };
 
     handleChange = (event) => {
@@ -31,8 +31,6 @@ class _ChatList extends Component {
         }
         this.addChat(this.state.textChatField);
         this.setState({ textChatField: [] });
-
-        event.target.value = this.state.textChatField;
     };
 
     addChat = (chatName) => {
