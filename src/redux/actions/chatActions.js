@@ -7,3 +7,12 @@ export const addChat = (chatId, chatName) => ({
         chatName,
     },
 });
+
+export const HAVE_UNREAD_MESSAGE = '@@chat/HAVE_UNREAD_MESSAGE';
+
+export const haveUnreadMessage = (chatId) => ({
+    type: HAVE_UNREAD_MESSAGE,
+    payload: {
+        chatId,
+    },
+});

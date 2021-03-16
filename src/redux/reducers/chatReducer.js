@@ -1,8 +1,11 @@
 import { SEND_MESSAGE } from '../actions/messageActions';
-import { ADD_CHAT } from '../actions/chatActions';
+import { ADD_CHAT, HAVE_UNREAD_MESSAGE } from '../actions/chatActions';
 
 const initialState = {
-    chats: [{ chatId: 0, chatName: 'frist chat' }],
+    currentPath: '/',
+    chats: {
+        0: { chatName: 'frist chat', haveUnreadMessage: true },
+    },
     messages: {
         0: [{ text: 'Hello from redux', author: 'Robot' }],
     },
@@ -10,23 +13,41 @@ const initialState = {
 
 export const chatReducer = (state = initialState, action) => {
     switch (action.type) {
+        case '@@router/LOCATION_CHANGE': {
+            return {
+                ...state,
+                currentPath: action.payload.location.pathname,
+            };
+        }
+        case HAVE_UNREAD_MESSAGE: {
+            const chats = state.chats || {};
+            const currentChat = chats[action.payload.chatId];
+            return {
+                ...state,
+                chats: {
+                    ...chats,
+                    [action.payload.chatId]: {
+                        ...currentChat,
+                        haveUnreadMessage: !chats[action.payload.chatId].haveUnreadMessage,
+                    },
+                },
+            };
+        }
         case ADD_CHAT: {
             const chats = state.chats || [];
 
             return {
                 ...state,
-                chats: [
+                chats: {
                     ...chats,
-                    {
-                        chatId: action.payload.chatId,
+                    [action.payload.chatId]: {
                         chatName: action.payload.chatName,
                     },
-                ],
+                },
             };
         }
         case SEND_MESSAGE: {
-            const previouseMessages =
-                state.messages[action.payload.chatId] || [];
+            const previouseMessages = state.messages[action.payload.chatId] || [];
 
             return {
                 ...state,

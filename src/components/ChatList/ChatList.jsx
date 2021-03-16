@@ -11,7 +11,7 @@ import { addChat } from '../../redux/actions/chatActions';
 
 class _ChatList extends Component {
     static propTypes = {
-        chats: PropTypes.array.isRequired,
+        chats: PropTypes.object.isRequired,
         addChat: PropTypes.func.isRequired,
     };
 
@@ -34,7 +34,7 @@ class _ChatList extends Component {
     };
 
     addChat = (chatName) => {
-        const chatId = this.props.chats.length;
+        const chatId = Object.keys(this.props.chats).length;
         this.props.addChat(chatId, chatName);
     };
 
@@ -72,13 +72,14 @@ class _ChatList extends Component {
                     </form>
                 </div>
                 <div className="chat_list">
-                    {chats.map((item, index) => (
-                        <NavLink
-                            key={index}
-                            to={`/chat/${item.chatId}`}
-                            activeClassName="selected-chat"
-                        >
-                            <Chat {...item} />
+                    {Object.keys(chats).map((item, index) => (
+                        <NavLink key={index} to={`/chat/${item}`} activeClassName="selected-chat">
+                            <Chat
+                                chatName={`${chats[item].chatName}`}
+                                haveUnreadMessage={`${
+                                    chats[item].haveUnreadMessage ? true : false
+                                }`}
+                            />
                         </NavLink>
                     ))}
                 </div>

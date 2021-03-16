@@ -43,7 +43,9 @@ class _MessageField extends Component {
     };
 
     componentDidUpdate() {
-        this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
+        if (this.fieldRef.current) {
+            this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
+        }
     }
 
     render() {
