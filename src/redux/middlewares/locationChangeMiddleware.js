@@ -8,9 +8,11 @@ export const locationChangeMiddleware = (store) => (next) => (action) => {
             const currentPath = action.payload.location.pathname;
             if (currentPath.indexOf('/chat/') != -1) {
                 const chatId = currentPath.slice(currentPath.lastIndexOf('/') + 1);
-                if (store.getState().chat.chats[chatId].haveUnreadMessage) {
-                    store.dispatch(haveUnreadMessage(chatId));
-                }
+                setTimeout(() => {
+                    if (store.getState().chat.chats[chatId].haveUnreadMessage) {
+                        store.dispatch(haveUnreadMessage(chatId));
+                    }
+                }, 500);
             }
         }
     }

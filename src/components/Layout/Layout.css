@@ -1,3 +1,11 @@
 .grid_container {
     height: 100%;
 }
+
+.icon_delete {
+    display: none;
+}
+
+.chat_item:hover .icon_delete {
+    display: block;
+}

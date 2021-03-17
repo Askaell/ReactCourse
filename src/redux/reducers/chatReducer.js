@@ -1,5 +1,5 @@
 import { SEND_MESSAGE } from '../actions/messageActions';
-import { ADD_CHAT, HAVE_UNREAD_MESSAGE } from '../actions/chatActions';
+import { ADD_CHAT, HAVE_UNREAD_MESSAGE, DELETE_CHAT } from '../actions/chatActions';
 
 const initialState = {
     currentPath: '/',
@@ -22,6 +22,8 @@ export const chatReducer = (state = initialState, action) => {
         case HAVE_UNREAD_MESSAGE: {
             const chats = state.chats || {};
             const currentChat = chats[action.payload.chatId];
+
+            // if (chats[action.payload.chatId].haveUnreadMessage) {
             return {
                 ...state,
                 chats: {
@@ -32,6 +34,11 @@ export const chatReducer = (state = initialState, action) => {
                     },
                 },
             };
+            // } else {
+            //     return {
+            //         ...state,
+            //     };
+            // }
         }
         case ADD_CHAT: {
             const chats = state.chats || [];
@@ -42,7 +49,25 @@ export const chatReducer = (state = initialState, action) => {
                     ...chats,
                     [action.payload.chatId]: {
                         chatName: action.payload.chatName,
+                        haveUnreadMessage: false,
                     },
+                },
+            };
+        }
+        case DELETE_CHAT: {
+            const chats = state.chats || [];
+            delete chats[action.payload.chatId];
+
+            const previouseMessages = state.messages || [];
+            delete previouseMessages[action.payload.chatId];
+
+            return {
+                ...state,
+                chats: {
+                    ...chats,
+                },
+                messages: {
+                    ...previouseMessages,
                 },
             };
         }

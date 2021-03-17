@@ -56,7 +56,7 @@ class _MessageField extends Component {
                 {this.props.currentChat && (
                     <div className="message-field">
                         <div className="messages" ref={this.fieldRef}>
-                            {messages[chatId] &&
+                            {chatId in messages &&
                                 messages[chatId].map((item, index) => (
                                     <Message key={index} {...item} />
                                 ))}

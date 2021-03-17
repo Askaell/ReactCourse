@@ -1,11 +1,11 @@
 import React from 'react';
 import { ListItem, ListItemText, Icon } from '@material-ui/core';
-import Brightness1Icon from '@material-ui/icons/Brightness1';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const Chat = (props) => {
     const haveUnreadMessage = props.haveUnreadMessage !== 'false' ? true : false;
     return (
-        <ListItem button>
+        <ListItem button data-chatid={props.chatId}>
             <ListItemText className="item__text" primary={props.chatName}></ListItemText>
             {haveUnreadMessage && (
                 <Icon
@@ -16,6 +16,9 @@ const Chat = (props) => {
                     circle
                 </Icon>
             )}
+            <div className="icon_delete" data-chatid={props.chatId} onClick={props.onClick}>
+                <DeleteIcon style={{ fontSize: '1.0rem' }} />
+            </div>
         </ListItem>
     );
 };
