@@ -3,7 +3,7 @@ import { ListItem, ListItemText, Icon } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const Chat = (props) => {
-    const haveUnreadMessage = props.haveUnreadMessage !== 'false' ? true : false;
+    const haveUnreadMessage = props.haveUnreadMessage !== 'false';
     return (
         <ListItem button data-chatid={props.chatId}>
             <ListItemText className="item__text" primary={props.chatName}></ListItemText>

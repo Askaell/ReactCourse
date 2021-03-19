@@ -92,9 +92,7 @@ class _ChatList extends Component {
                                     onClick={this.handleDeleteChat}
                                     chatId={`${item}`}
                                     chatName={`${chats[item].chatName}`}
-                                    haveUnreadMessage={`${
-                                        chats[item].haveUnreadMessage ? true : false
-                                    }`}
+                                    haveUnreadMessage={`${Boolean(chats[item].haveUnreadMessage)}`}
                                 />
                             </div>
                         </NavLink>
