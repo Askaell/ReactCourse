@@ -5,9 +5,7 @@ const Message = (props) => {
         <div>
             <div
                 className={
-                    props.author === 'You'
-                        ? 'message message_your'
-                        : 'message message_other'
+                    props.author === 'You' ? 'message message_your' : 'message message_other'
                 }
             >
                 <div className="message__text">{props.text}</div>
