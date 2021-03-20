@@ -30,13 +30,13 @@ class _MessageField extends Component {
 
         this.props.sendMessage(messageText, currentAuthor, chatId);
 
-        fetch(`http://localhost:3000/messages/${chatId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ text: messageText, author: currentAuthor }),
-        });
+        // fetch(`http://localhost:3000/messages/${chatId}`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({ text: messageText, author: currentAuthor }),
+        // });
     };
 
     handleSubmit = (event) => {

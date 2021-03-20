@@ -38,7 +38,6 @@ export const messagesReducer = (state = initialState, action) => {
                 messages: action.payload.messages,
             };
         }
-
         case SEND_MESSAGE: {
             const previouseMessages = state.messages[action.payload.chatId] || [];
 
