@@ -6,13 +6,16 @@ import { connect } from 'react-redux';
 import { Message } from '../Message';
 import './MessageField.css';
 
-import { sendMessage } from '../../redux/actions/messageActions';
+import { sendMessage, uploadMessages, loadMessages } from '../../redux/actions/messageActions';
 
 class _MessageField extends Component {
     static propTypes = {
         currentChat: PropTypes.string,
+        isLoading: PropTypes.bool.isRequired,
         messages: PropTypes.object.isRequired,
         sendMessage: PropTypes.func.isRequired,
+        uploadMessages: PropTypes.func.isRequired,
+        loadMessages: PropTypes.func.isRequired,
     };
 
     state = {
@@ -26,6 +29,14 @@ class _MessageField extends Component {
         const currentAuthor = author.length ? author : 'You';
 
         this.props.sendMessage(messageText, currentAuthor, chatId);
+
+        fetch(`http://localhost:3000/messages/${chatId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: messageText, author: currentAuthor }),
+        });
     };
 
     handleSubmit = (event) => {
@@ -42,6 +53,13 @@ class _MessageField extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
+    componentDidMount() {
+        // fetch('/api/messages.json')
+        //     .then((res) => res.json())
+        //     .then(this.props.uploadMessages);
+        this.props.loadMessages();
+    }
+
     componentDidUpdate() {
         if (this.fieldRef.current) {
             this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
@@ -49,7 +67,11 @@ class _MessageField extends Component {
     }
 
     render() {
-        const { messages = {}, currentChat: chatId } = this.props;
+        const { messages = {}, currentChat: chatId, isLoading = false } = this.props;
+
+        if (isLoading) {
+            return <div className="messageFieldContainer">Loading...</div>;
+        }
 
         return (
             <div className="messageFieldContainer">
@@ -96,9 +118,12 @@ class _MessageField extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    messages: state.chat.messages,
+    messages: state.messages.messages,
+    isLoading: state.messages.isLoading,
 });
 
-const MessageField = connect(mapStateToProps, { sendMessage })(_MessageField);
+const MessageField = connect(mapStateToProps, { sendMessage, uploadMessages, loadMessages })(
+    _MessageField
+);
 
 export { MessageField };

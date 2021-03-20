@@ -1,29 +1,43 @@
-import { SEND_MESSAGE } from '../actions/messageActions';
-import { ADD_CHAT, HAVE_UNREAD_MESSAGE, DELETE_CHAT } from '../actions/chatActions';
+import {
+    ADD_CHAT,
+    HAVE_UNREAD_MESSAGE,
+    DELETE_CHAT,
+    START_CHATS_LOADING,
+    SUCCESS_CHATS_LOADING,
+    ERROR_CHATS_LOADING,
+} from '../actions/chatActions';
 
 const initialState = {
     currentPath: '/',
-    chats: {
-        0: { chatName: 'frist chat', haveUnreadMessage: true },
-    },
-    messages: {
-        0: [{ text: 'Hello from redux', author: 'Robot' }],
-    },
+    chats: {},
+    isLoading: false,
 };
 
 export const chatReducer = (state = initialState, action) => {
     switch (action.type) {
-        case '@@router/LOCATION_CHANGE': {
+        case SUCCESS_CHATS_LOADING: {
             return {
                 ...state,
-                currentPath: action.payload.location.pathname,
+                isLoading: false,
+                chats: action.payload,
+            };
+        }
+        case ERROR_CHATS_LOADING: {
+            return {
+                ...state,
+                isLoading: false,
+            };
+        }
+        case START_CHATS_LOADING: {
+            return {
+                ...state,
+                isLoading: true,
             };
         }
         case HAVE_UNREAD_MESSAGE: {
             const chats = state.chats || {};
             const currentChat = chats[action.payload.chatId];
 
-            // if (chats[action.payload.chatId].haveUnreadMessage) {
             return {
                 ...state,
                 chats: {
@@ -34,11 +48,6 @@ export const chatReducer = (state = initialState, action) => {
                     },
                 },
             };
-            // } else {
-            //     return {
-            //         ...state,
-            //     };
-            // }
         }
         case ADD_CHAT: {
             const chats = state.chats || [];
@@ -71,21 +80,10 @@ export const chatReducer = (state = initialState, action) => {
                 },
             };
         }
-        case SEND_MESSAGE: {
-            const previouseMessages = state.messages[action.payload.chatId] || [];
-
+        case '@@router/LOCATION_CHANGE': {
             return {
                 ...state,
-                messages: {
-                    ...state.messages,
-                    [action.payload.chatId]: [
-                        ...previouseMessages,
-                        {
-                            text: action.payload.text,
-                            author: action.payload.author,
-                        },
-                    ],
-                },
+                currentPath: action.payload.location.pathname,
             };
         }
         default:

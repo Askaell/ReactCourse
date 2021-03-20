@@ -8,13 +8,14 @@ import { push } from 'connected-react-router';
 import { Chat } from './Chat';
 import './ChatList.css';
 
-import { addChat, deleteChat } from '../../redux/actions/chatActions';
+import { addChat, deleteChat, loadChats } from '../../redux/actions/chatActions';
 
 class _ChatList extends Component {
     static propTypes = {
         chats: PropTypes.object.isRequired,
         addChat: PropTypes.func.isRequired,
         deleteChat: PropTypes.func.isRequired,
+        loadChats: PropTypes.func.isRequired,
         push: PropTypes.func.isRequired,
     };
 
@@ -51,9 +52,20 @@ class _ChatList extends Component {
         this.props.deleteChat(chatId);
     };
 
-    render() {
-        const { chats } = this.props;
+    componentDidMount() {
+        this.props.loadChats();
+    }
 
+    render() {
+        const { chats, isLoading = false } = this.props;
+
+        if (isLoading) {
+            return (
+                <List className="chat_list_container">
+                    <div className="chat_list">Loading...</div>
+                </List>
+            );
+        }
         return (
             <List className="chat_list_container">
                 <div className="chat_input">
@@ -105,8 +117,9 @@ class _ChatList extends Component {
 
 const mapStateToProps = (state) => ({
     chats: state.chat.chats,
+    isLoading: state.chat.isLoading,
 });
 
-const ChatList = connect(mapStateToProps, { addChat, deleteChat, push })(_ChatList);
+const ChatList = connect(mapStateToProps, { addChat, deleteChat, loadChats, push })(_ChatList);
 
 export { ChatList };
