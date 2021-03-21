@@ -4,6 +4,7 @@ import { Button, AppBar, Toolbar, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { loadProfile } from '../../redux/actions/profileActions';
 import './Header.css';
 
 class _Header extends Component {
@@ -11,8 +12,12 @@ class _Header extends Component {
         profile: PropTypes.object.isRequired,
     };
 
+    componentDidMount() {
+        this.props.loadProfile();
+    }
+
     render() {
-        const { profile } = this.props;
+        const { profile = '' } = this.props;
         return (
             <AppBar position="static">
                 <Toolbar>
@@ -35,6 +40,6 @@ const mapStateToProps = (state) => ({
     profile: state.profile.profile,
 });
 
-const Header = connect(mapStateToProps)(_Header);
+const Header = connect(mapStateToProps, { loadProfile })(_Header);
 
 export { Header };

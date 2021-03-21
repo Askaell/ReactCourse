@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TextField, Button, Grid, List } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import { setProfileName } from '../../redux/actions/profileActions';
+import { setProfileName, loadProfile } from '../../redux/actions/profileActions';
 
 class _ProfileLayout extends Component {
     static propTypes = {
@@ -33,8 +33,16 @@ class _ProfileLayout extends Component {
         this.props.setProfileName(profileName);
     };
 
+    componentDidMount() {
+        this.props.loadProfile();
+    }
+
     render() {
-        const { profile } = this.props;
+        const { profile, isLoading = false } = this.props;
+
+        if (isLoading) {
+            return <div>Loading...</div>;
+        }
 
         return (
             <div>
@@ -73,8 +81,9 @@ class _ProfileLayout extends Component {
 
 const mapStateToProps = (state) => ({
     profile: state.profile.profile,
+    isLoading: state.profile.isLoading,
 });
 
-const ProfileLayout = connect(mapStateToProps, { setProfileName })(_ProfileLayout);
+const ProfileLayout = connect(mapStateToProps, { setProfileName, loadProfile })(_ProfileLayout);
 
 export { ProfileLayout };

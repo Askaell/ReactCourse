@@ -17,7 +17,7 @@ const persistConfig = {
     key: 'root',
     storage,
     stateReconciler: autoMergeLevel2,
-    whitelist: ['chat', 'profile'],
+    whitelist: ['chat', 'messages', 'profile'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer(history));
