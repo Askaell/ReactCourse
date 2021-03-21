@@ -18,11 +18,11 @@ export const loadMessages = () => ({
     },
 });
 
-export const UPLOAD_MESSAGES = '@@message/UPLOAD_MESSAGES';
-export const uploadMessages = (messages) => ({
-    type: UPLOAD_MESSAGES,
-    payload: messages,
-});
+// export const UPLOAD_MESSAGES = '@@message/UPLOAD_MESSAGES';
+// export const uploadMessages = (messages) => ({
+//     type: UPLOAD_MESSAGES,
+//     payload: messages,
+// });
 
 export const SEND_MESSAGE = '@@message/SEND_MESSAGE';
 export const sendMessage = (text, author, chatId) => ({
@@ -30,6 +30,14 @@ export const sendMessage = (text, author, chatId) => ({
     payload: {
         text,
         author,
+        chatId,
+    },
+});
+
+export const DELETE_CHAT_MESSAGES = '@@message/DELETE_CHAT_MESSAGES';
+export const deleteChatMessages = (chatId) => ({
+    type: DELETE_CHAT_MESSAGES,
+    payload: {
         chatId,
     },
 });

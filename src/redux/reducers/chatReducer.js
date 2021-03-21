@@ -1,3 +1,5 @@
+import 'lodash';
+
 import {
     ADD_CHAT,
     HAVE_UNREAD_MESSAGE,
@@ -6,6 +8,7 @@ import {
     SUCCESS_CHATS_LOADING,
     ERROR_CHATS_LOADING,
 } from '../actions/chatActions';
+import { deleteChatMessages } from '../actions/messageActions';
 
 const initialState = {
     currentPath: '/',
@@ -64,19 +67,14 @@ export const chatReducer = (state = initialState, action) => {
             };
         }
         case DELETE_CHAT: {
-            const chats = state.chats || [];
-            delete chats[action.payload.chatId];
-
-            const previouseMessages = state.messages || [];
-            delete previouseMessages[action.payload.chatId];
+            let chats = state.chats || [];
+            console.log(_);
+            chats = _.omit(chats, [action.payload.chatId]);
 
             return {
                 ...state,
                 chats: {
                     ...chats,
-                },
-                messages: {
-                    ...previouseMessages,
                 },
             };
         }

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Message } from '../Message';
 import './MessageField.css';
 
-import { sendMessage, uploadMessages, loadMessages } from '../../redux/actions/messageActions';
+import { sendMessage, loadMessages } from '../../redux/actions/messageActions';
 
 class _MessageField extends Component {
     static propTypes = {
@@ -14,7 +14,6 @@ class _MessageField extends Component {
         isLoading: PropTypes.bool.isRequired,
         messages: PropTypes.object.isRequired,
         sendMessage: PropTypes.func.isRequired,
-        uploadMessages: PropTypes.func.isRequired,
         loadMessages: PropTypes.func.isRequired,
     };
 
@@ -122,8 +121,6 @@ const mapStateToProps = (state) => ({
     isLoading: state.messages.isLoading,
 });
 
-const MessageField = connect(mapStateToProps, { sendMessage, uploadMessages, loadMessages })(
-    _MessageField
-);
+const MessageField = connect(mapStateToProps, { sendMessage, loadMessages })(_MessageField);
 
 export { MessageField };

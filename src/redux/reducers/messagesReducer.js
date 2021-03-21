@@ -1,6 +1,8 @@
+import 'lodash';
+
 import {
     SEND_MESSAGE,
-    UPLOAD_MESSAGES,
+    DELETE_CHAT_MESSAGES,
     START_MESSAGES_LOADING,
     SUCCESS_MESSAGES_LOADING,
     ERROR_MESSAGES_LOADING,
@@ -32,10 +34,21 @@ export const messagesReducer = (state = initialState, action) => {
                 isLoading: true,
             };
         }
-        case UPLOAD_MESSAGES: {
+        // case UPLOAD_MESSAGES: {
+        //     return {
+        //         ...state,
+        //         messages: action.payload.messages,
+        //     };
+        // }
+        case DELETE_CHAT_MESSAGES: {
+            let previouseMessages = state.messages || {};
+            previouseMessages = _.omit(previouseMessages, [action.payload.chatId]);
+
             return {
                 ...state,
-                messages: action.payload.messages,
+                messages: {
+                    ...previouseMessages,
+                },
             };
         }
         case SEND_MESSAGE: {
